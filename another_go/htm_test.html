@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Sent Events Example</title>
+</head>
+<body>
+<h1>Server-Sent Events Example</h1>
+<div id="sse"></div>
+
+<script>
+    const sseDiv = document.getElementById('sse');
+    // const source = new EventSource("http://localhost:3000/sse")
+    const evtSource = new EventSource('http://localhost:8080/events');
+
+    evtSource.onmessage = function(event) {
+        const newElement = document.createElement('div');
+        console.log(event.data)
+        newElement.textContent = 'Server Time: ' + event.data;
+        sseDiv.appendChild(newElement);
+    };
+
+    evtSource.onerror = function(event) {
+        console.error("EventSource failed:", event);
+        evtSource.close();
+    };
+</script>
+</body>
+</html>
+
+</body>
+</html>
